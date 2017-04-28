@@ -2,6 +2,7 @@ var morgan = require('morgan');
 var express = require('express');
 var bodyParser = require('body-parser');
 var nunjucks = require("nunjucks");
+var makesRouter = require("./routes");
 var app = express();
 
 // point nunjucks to the directory containing templates and turn off caching; configure returns an Environment
@@ -15,12 +16,12 @@ app.engine('html', nunjucks.render);
 // logging middleware
 app.use(morgan('dev'));
 app.use(express.static('public'));
-app.use('/',routes);
+app.use('/',makesRouter);
 
 // body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
-var server = app.listen(1337, ()=>{
-  console.log("Listening on port 1337");
+var server = app.listen(5432, ()=>{
+  console.log("Listening on port 5432");
 })
