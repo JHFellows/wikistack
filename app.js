@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use('/',makesRouter);
 
 // body parsing middleware
-app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
+app.use(bodyParser.urlencoded({ extended: false })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
 models.db.sync({force: true})
@@ -30,6 +30,3 @@ models.db.sync({force: true})
 	});
 })
 .catch(console.error);
-
-
-
