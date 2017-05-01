@@ -1,6 +1,26 @@
+var app = require('../app.js');
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://localhost:5432/wikistack');
+var db = new Sequelize('postgres://localhost:5432/wikistack', {
+	logging: false
+});
 
-var Page = db.define("Page",{
-  
-})
+var Page = db.define("page",{
+  title: {type: Sequelize.STRING},
+  urlTitle: {type: Sequelize.STRING},
+  content: {type: Sequelize.TEXT},
+  status: {type: Sequelize.ENUM('open', 'closed')}
+});
+
+var User = db.define("user",{
+	name: {type : Sequelize.STRING},
+	email: {type: Sequelize.STRING}
+});
+module.exports = {
+	db: db,
+	Page: Page,
+	User: User
+}
+
+
+
+

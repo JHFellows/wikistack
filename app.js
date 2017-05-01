@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var nunjucks = require("nunjucks");
 var makesRouter = require("./routes");
 var app = express();
+var models = require('./models');
 
 // point nunjucks to the directory containing templates and turn off caching; configure returns an Environment
 // instance, which we'll want to use to add Markdown support later.
@@ -22,6 +23,13 @@ app.use('/',makesRouter);
 app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
-var server = app.listen(5432, ()=>{
-  console.log("Listening on port 5432");
+models.db.sync({force: true})
+.then(function(){
+	app.listen(3000, ()=>{
+	  console.log("Listening on port 3000");
+	});
 })
+.catch(console.error);
+
+
+
